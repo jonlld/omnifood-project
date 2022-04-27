@@ -1,0 +1,271 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* to set 1rem to 10px, using % to respect user font-size */
+  /* we will use rem from here forwards */
+  font-size: 62.5%;
+  overflow-x: hidden;
+  /* works only for Chrome & Firefox */
+  /* scroll-behavior: smooth; */
+}
+
+body {
+  /* Rubik: startup with some calm  */
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  /* nice color for text - #555555 so can shorted */
+  color: #555;
+  /* as we are moving the menu overlay to the right of screen - #135 */
+
+  /* this is for the sliding menu navigation - MOBILE */
+  /* only works if nothing absolutely positioned in relation to body */
+  overflow-x: hidden;
+}
+
+/*******************************************/
+/* GENERAL REUSABLE COMPONENTS */
+/*******************************************/
+
+/* reusable centered container */
+.container {
+  /* 1140px or 1200px are quite common */
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+}
+
+/* reusable grid class - stacking generic classes, kind of like bootstrap */
+.grid {
+  display: grid;
+  column-gap: 6.4rem;
+  row-gap: 9.6rem;
+  /* margin-bottom: 9.6rem; */
+}
+
+/* .grid:last-child {
+  margin-bottom: 0;
+} */
+
+.grid:not(:last-child) {
+  margin-bottom: 9.6rem;
+}
+
+/* variations use -- */
+.grid--2-cols {
+  /* same as 1fr 1fr */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--4-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* .grid--5-cols {
+  grid-template-columns: repeat(5, 1fr);
+} */
+
+.grid--center-v {
+  align-items: center;
+}
+
+/* using a list for common styles here */
+.heading-primary,
+.heading-secondary,
+.heading-tertiary {
+  font-weight: 700;
+
+  color: #333;
+  /* can even use shades of primary colour - but moves a bit away from startup personality which uses neutral greys */
+  /* color: #45260a; */
+
+  /* don't really need to scale, so can use px here */
+  letter-spacing: -0.5px;
+}
+
+.heading-primary {
+  /* using rem */
+  font-size: 5.2rem;
+  /* less for bigger fonts */
+  line-height: 1.05;
+  margin-bottom: 3.2rem;
+}
+
+.heading-secondary {
+  font-size: 4.4rem;
+  line-height: 1.2;
+  margin-bottom: 9.6rem;
+}
+
+.heading-tertiary {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
+}
+
+.subheading {
+  /* span is inline */
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cf711f;
+  text-transform: uppercase;
+  /* when text is small and uppercase, can add spacing to give it room to breathe */
+  letter-spacing: 0.75px;
+  margin-bottom: 1.6rem;
+}
+
+/* .heading-tertiary {
+} */
+
+.btn,
+.btn:link,
+.btn:visited {
+  /* for vertical padding */
+  display: inline-block;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 1.6rem 3.2rem;
+  border-radius: 9px;
+
+  /* Only needed for actual button in form */
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+
+  /* Put transition on rule with original 'state' */
+  /* state what we want to animate or change value of and the duration */
+  /* transition: background-color 0.3s; */
+  transition: all 0.3s;
+}
+
+/* modifier class */
+.btn--full:link,
+.btn--full:visited {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+.btn--full:hover,
+.btn--full:active {
+  background-color: #cf711f;
+}
+
+/* modifier class */
+.btn--outline:link,
+.btn--outline:visited {
+  background-color: #fff;
+  color: #555;
+}
+
+.btn--outline:hover,
+.btn--outline:active {
+  background-color: #fdf2e9;
+
+  /* this adds border to outside... */
+  /* border: 3px solid #fff; */
+
+  /* trick to add to inside: */
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+.btn--form {
+  background-color: #45260a;
+  color: #fdf2e9;
+  /* grid item */
+  align-self: end;
+  /* match form elements */
+  padding: 1.2rem;
+}
+
+.btn--form:hover {
+  background-color: #fff;
+  color: #555;
+}
+
+.link:link,
+.link:visited {
+  display: inline-block;
+  color: #e67e22;
+  /* trick here to format a link underline */
+  text-decoration: none;
+  /* recreating line with border and currentColor takes text color */
+  border-bottom: 1px solid currentColor;
+  /* separates line  */
+  padding-bottom: 2px;
+  transition: all 0.3s;
+}
+
+.link:hover,
+.link:active {
+  color: #cf711f;
+  border-bottom: 1px solid transparent;
+}
+
+/* lists also good candidates for reusability! */
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.list-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #e67e22;
+}
+
+.list-item {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  line-height: 1.2;
+}
+
+/* fixing the default focus box behaviour */
+*:focus {
+  /* new property - not part of box model */
+
+  /* none is an accessibility issue */
+  outline: none;
+  /* so add a different focus indicator */
+
+  /* not perfect but one option */
+  /* outline: 4px dotted #e67e22;
+  outline-offset: 8px; */
+
+  box-shadow: 0 0 0 0.8rem rgba(230, 125, 34, 0.5);
+}
+
+/* HELPER OR 'SETTINGS' CLASSES */
+/* usually add !important to these as we always want them to work */
+
+.margin-right-sm {
+  margin-right: 1.6rem !important;
+}
+
+/* helper class md = medium */
+.margin-bottom-md {
+  margin-bottom: 4.8rem !important;
+}
+
+.center-text {
+  text-align: center;
+}
+
+/* making it less heavy - default is prob 700 */
+strong {
+  font-weight: 500;
+}

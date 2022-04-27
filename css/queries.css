@@ -1,0 +1,386 @@
+/* rem and em do NOT depend on html font-size in media queries. Instead, 1rem = 1em = 16px */
+
+/* rem = root */
+/* em = current font-size */
+
+/* seems rem has some bugs in media queries, so will use em here */
+
+/*******************************************/
+/* BELOW 1344px (smaller desktops) */
+/* 1344px / 16 = 84 */
+/*******************************************/
+
+@media (max-width: 84em) {
+  /* rem inside the query works as normal */
+  .hero {
+    max-width: 120rem;
+  }
+
+  .heading-primary {
+    font-size: 4.4rem;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/*******************************************/
+/* BELOW 1200px (landscape tablets) */
+/* 1200 / 16 = 75 */
+/*******************************************/
+
+/* now we can take advantage of having used rem from the start */
+/* works because we already have fluid grid / responsive images / responsive units (rem) */
+@media (max-width: 75em) {
+  html {
+    /* 9px / 16 * 100 = 56.25% */
+    font-size: 56.25%;
+  }
+
+  /* here still assuming 1rem is still 10px, for consistency with initial code */
+
+  .grid {
+    column-gap: 4.8rem;
+    row-gap: 6.4rem;
+  }
+
+  .heading-secondary {
+    font-size: 3.6rem;
+  }
+
+  .heading-tertiary {
+    font-size: 2.4rem;
+  }
+
+  /* to match the sides to the container sides */
+  .header {
+    padding: 0 3.2rem;
+  }
+
+  .main-nav-list {
+    gap: 3.2rem;
+  }
+
+  .hero {
+    gap: 4.8rem;
+  }
+
+  .testimonials-container {
+    padding: 9.6rem 3.2rem;
+  }
+}
+
+/*******************************************/
+/* BELOW 944px (roughly tablets - checking where design breaks) */
+/* 944 / 16 = 59 */
+/*******************************************/
+
+@media (max-width: 59em) {
+  html {
+    /* 8px / 16 * 100 = 50% */
+    font-size: 50%;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 0, 8rem;
+    /* now vertical gap as one column, so add some more */
+    gap: 6.4rem;
+  }
+
+  /* not in flexbox */
+  .hero-text-box,
+  .hero-image-box {
+    text-align: center;
+  }
+
+  /* in flexbox */
+  .delivered-meals {
+    justify-content: center;
+    margin-top: 3.2rem;
+  }
+
+  .hero-img {
+    width: 60%;
+  }
+
+  .logos img {
+    height: 2.4rem;
+  }
+
+  .step-number {
+    font-size: 7.4rem;
+  }
+
+  .meal-content {
+    padding: 2.4rem 3.2rem 3.2rem 3.2rem;
+  }
+
+  .section-testimonials {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .cta {
+    /*  chg to 60:40 ratio */
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .cta-form {
+    grid-template-columns: 1fr;
+  }
+
+  .btn--form {
+    margin-top: 1.2rem;
+  }
+
+  .btn-mobile-nav {
+    display: block;
+    /* just to keep it above overlay */
+    z-index: 9999;
+  }
+
+  .main-nav {
+    background-color: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    /* and position relative to parent element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* 100% of viewport height (not page)*/
+    height: 100vh;
+
+    /* to move off screen for sliding animation */
+    /* then it shows on side of screen, so add overflow-x: hidden to body & html */
+    transform: translateX(100%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Hide navigation */
+
+    /* Allows NO transitions */
+    /* display: none; */
+
+    /* 1 - hide visually */
+    opacity: 0;
+    /* 2 - make it unaccessable to mouse / keyboard */
+    /* so tab does not select the links etc. as still on page */
+    pointer-events: none;
+    /* 3 - hide it from screen readers */
+    visibility: hidden;
+
+    transition: all 0.5s ease-in;
+  }
+
+  /* to set up JS - only applies if parent has 'nav-open' class */
+  .nav-open .main-nav {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  /* already flex */
+  .main-nav-list {
+    flex-direction: column;
+    /* adding back more gap */
+    gap: 4.8rem;
+  }
+
+  .main-nav-link:link,
+  .main-nav-link:visited {
+    font-size: 3rem;
+  }
+
+  /* again use descendent - only apply if parent has .nav-open */
+  .nav-open .icon-mobile-nav[name="close-outline"] {
+    /* no animation needed so can use display here */
+    display: block;
+  }
+
+  .nav-open .icon-mobile-nav[name="menu-outline"] {
+    /* no animation needed so can use display here */
+    display: none;
+  }
+}
+
+/*******************************************/
+/* BELOW 700px (smaller tablets) */
+/* 704 / 16 = 44 */
+/*******************************************/
+
+@media (max-width: 44em) {
+  .grid--3-cols,
+  .grid--4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .diets {
+    /* beginning to end */
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  .heading-secondary {
+    margin-bottom: 4.8rem;
+  }
+
+  .pricing-plan {
+    width: 100%;
+  }
+
+  .grid--footer {
+    /* change to 3 columns */
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .logo-col,
+  .address-col {
+    grid-column: span 3;
+  }
+
+  .nav-col {
+    /* move to 1st row! */
+    grid-row: 1;
+    grid-column: span 2;
+    margin-bottom: 3.2rem;
+  }
+}
+
+/*******************************************/
+/* BELOW 550px (phones) */
+/* 544 / 16 = 34 */
+/*******************************************/
+
+@media (max-width: 34em) {
+  .grid {
+    row-gap: 4.8rem;
+  }
+
+  .grid--2-cols,
+  .grid--3-cols,
+  .grid--4-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .btn,
+  .btn:link,
+  .btn:visited {
+    padding: 2.4rem 1.6rem;
+  }
+
+  .section-hero {
+    padding: 2.4rem 0 6.4rem 0;
+  }
+
+  .hero {
+    padding: 0, 3.2rem;
+  }
+
+  .hero-img {
+    width: 80%;
+  }
+
+  .logos img {
+    height: 1.2rem;
+  }
+
+  /* order of all children of parent element, not only those with this class */
+  .step-img-box:nth-child(2) {
+    grid-row: 1;
+  }
+
+  .step-img-box:nth-child(6) {
+    grid-row: 5;
+  }
+
+  /* translate is an easy way to move something without changing position of things nearby */
+  /* this will move it down, closer to the number */
+  .step-img-box {
+    transform: translateY(2.4rem);
+  }
+
+  .testimonials {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery {
+    /* even 3 looks good */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+
+  .cta {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-img-box {
+    grid-row: 1;
+    height: 32rem;
+  }
+
+  .cta-text-box {
+    padding: 3.2rem;
+  }
+}
+
+/*******************************************/
+/* Fixing flexbox gap for older Safari */
+/*******************************************/
+
+.no-flexbox-gap .main-nav-list li:not(:last-child) {
+  margin-right: 4.8rem;
+}
+
+.no-flexbox-gap .list-item:not(:last-child) {
+  margin-bottom: 1.6rem;
+}
+
+.no-flexbox-gap .list-icon:not(:last-child) {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .delivered-faces {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .meal-attribute:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.no-flexbox-gap .meal-icon {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .footer-row div:not(:last-child) {
+  margin-right: 6.4rem;
+}
+
+.no-flexbox-gap .social-links li:not(:last-child) {
+  margin-right: 2.4rem;
+}
+
+.no-flexbox-gap .footer-nav li:not(:last-child) {
+  margin-bottom: 2.4rem;
+}
+
+@media (max-width: 75em) {
+  .no-flexbox-gap .main-nav-list li:not(:last-child) {
+    margin-right: 3.2rem;
+  }
+}
+
+@media (max-width: 59em) {
+  .no-flexbox-gap .main-nav-list li:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 4.8rem;
+  }
+}
